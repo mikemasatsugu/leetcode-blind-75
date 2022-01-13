@@ -37,8 +37,28 @@
  * @param {number} target
  * @return {number[]}
  */
-var twoSum = function (nums, target) {
 
+/* 
+Quick Look: 
+Create a cache object for fast lookup.
+Iterate through given array.  Determine what number is needed to create target sum from current value at [i]
+if needed number is found in cache object, return an array of its value (which is its index), and current index [i]
+If not found in cache object, store as key:value pair where key is the needed number to reach target sum, and its value is the current index [i]
+
+If not found before iteration stops, return null
+
+*/
+var twoSum = function (nums, target) {
+  const cache = {};
+
+  for (let i = 0; i < nums.length; i++) {
+    let needed = target - nums[i];
+    if (cache[needed] >= 0) return [cache[needed], i]
+
+    cache[nums[i]] = i;
+  }
+
+  return null;
 };
 
 
