@@ -28,8 +28,38 @@
  * @param {number[]} prices
  * @return {number}
  */
-var maxProfit = function (prices) {
 
+/*
+Quick Look:
+*** The approach below mutates the input array = if this is not okay, create a shallow copy of the input array and modify accordingly.
+
+Set a variable to the first possible buy - first index of prices
+Set a value 'profit' at 0 (the day we purchase, profit will be 0);
+
+iterate through input array
+If the current value is less than the last value we "bought" at, we should make the current value our new buy since profit margin is higher
+If we do this, we need to reset our newest "buy" to the current value
+
+If the current value is NOT less than the last buy value, we recalculate our highest profit by taking the max between current price - buy price, and our profit at each step
+
+
+After the iteration is finished, return the max profit found
+
+*/
+
+var maxProfit = function (prices) {
+  let buy = prices[0];
+  let profit = 0;
+
+  for (let i = 1; i < prices.length; i++) {
+    if (buy > prices[i]) {
+      buy = prices[i];
+    } else {
+      profit = Math.max(prices[i] - buy, profit);
+    }
+  }
+
+  return profit;
 };
 
 module.exports = { maxProfit }
